@@ -1,0 +1,300 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Student Web Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column, big type up top, services as a price list, samples as browser frames, contact at the bottom. */
+:root {
+  --bg: #f2f5f8;
+  --surface: #ffffff;
+  --fg: #0f2236;
+  --muted: #55677a;
+  --line: #d3dce5;
+  --accent: #1f4fd8;
+  --accent-fg: #ffffff;
+  --mark: #ffd84d;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1620; --surface: #142230; --fg: #e7eef5; --muted: #98aabc;
+    --line: #26384a; --accent: #8aa9ff; --accent-fg: #0d1620; --mark: #6b5a12;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1620; --surface: #142230; --fg: #e7eef5; --muted: #98aabc;
+  --line: #26384a; --accent: #8aa9ff; --accent-fg: #0d1620; --mark: #6b5a12;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 720px; margin-inline: auto; display: flex; flex-direction: column; gap: 64px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+p { margin: 0; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* top bar */
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 18px; }
+.nav { display: flex; gap: 18px; font-size: 14px; }
+.nav a { color: var(--fg); text-decoration: none; }
+.nav a:hover { color: var(--accent); }
+
+/* hero */
+.hero { display: flex; flex-direction: column; gap: 22px; }
+.hero h1 { font-size: clamp(38px, 9vw, 64px); font-weight: 800; letter-spacing: -0.02em; }
+.hero h1 mark { background: linear-gradient(transparent 58%, var(--mark) 58%); color: inherit; padding: 0 2px; }
+.hero p.lead { font-size: 18px; color: var(--muted); max-width: 52ch; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  font: 600 15px var(--font-body);
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 2px solid var(--accent);
+  cursor: pointer;
+}
+.btn.solid { background: var(--accent); color: var(--accent-fg); }
+.btn.ghost { background: transparent; color: var(--accent); }
+.facts { display: flex; gap: 8px 20px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+
+/* section header */
+.sec { display: flex; flex-direction: column; gap: 22px; }
+.sec h2 { font-size: clamp(26px, 5vw, 34px); font-weight: 700; }
+
+/* services as a price list */
+.prices { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--fg); }
+.prices li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.prices h3 { font-size: 20px; font-weight: 700; }
+.prices .desc { grid-column: 1; color: var(--muted); font-size: 15px; min-width: 0; }
+.prices .cost {
+  grid-column: 2; grid-row: 1 / span 2; align-self: center;
+  font-family: var(--font-mono); font-weight: 500; font-size: 15px; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.note { font-size: 13px; color: var(--muted); }
+
+/* sample work */
+.work { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; }
+.card { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.frame {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.frame .dots { display: flex; gap: 5px; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.frame .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: block; }
+.shot { height: 110px; padding: 12px; display: flex; flex-direction: column; gap: 7px; }
+.shot b { display: block; height: 10px; border-radius: 3px; background: var(--fg); opacity: 0.85; }
+.shot s { display: block; height: 6px; border-radius: 3px; background: var(--muted); opacity: 0.35; text-decoration: none; }
+.shot .pill { margin-top: auto; width: 46px; height: 14px; border-radius: 7px; background: var(--accent); }
+.shot.a { background: color-mix(in srgb, var(--mark) 35%, var(--surface)); }
+.shot.b { background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.shot.c { background: color-mix(in srgb, var(--fg) 6%, var(--surface)); }
+.card h3 { font-size: 18px; }
+.card p { font-size: 14px; color: var(--muted); }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tags span { font-family: var(--font-mono); font-size: 11px; padding: 2px 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+
+/* about */
+.about { display: flex; flex-direction: column; gap: 14px; max-width: 60ch; }
+.about p { color: var(--muted); }
+.about p strong { color: var(--fg); font-weight: 600; }
+
+/* contact */
+.contact { display: flex; flex-direction: column; gap: 10px; }
+.row {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+}
+.row .k { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.row .v { font-weight: 600; overflow-wrap: anywhere; min-width: 0; user-select: all; }
+.copy {
+  font: 600 13px var(--font-body); padding: 6px 12px; border-radius: 6px;
+  border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer;
+}
+.copy:hover { border-color: var(--accent); color: var(--accent); }
+
+footer { font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn, .copy { transition: transform 0.15s ease, border-color 0.15s ease; }
+  .btn:hover { transform: translateY(-2px); }
+}
+</style>
+
+<div class="wrap">
+
+  <!-- Yahan apna naam likho -->
+  <header class="bar">
+    <span class="brand">Shahnawaz Ahmed</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="label">Web developer · Student</span>
+    <!-- Headline: apni baat ek line mein -->
+    <h1>Simple, fast websites for <mark>local businesses</mark>.</h1>
+    <p class="lead">Dukaan, salon, coaching class ya restaurant. If your business is not on Google yet, I can build you a clean website that works well on mobile.</p>
+    <div class="cta">
+      <a class="btn solid" href="#contact">Get a free quote</a>
+      <a class="btn ghost" href="#services">See prices</a>
+    </div>
+    <div class="facts">
+      <span>HTML · CSS · JavaScript</span>
+      <span>Mobile-first</span>
+      <span>Reply within 24 hrs</span>
+    </div>
+  </section>
+
+  <section class="sec" id="services">
+    <span class="label">Services</span>
+    <h2>What I build, and what it costs</h2>
+    <ul class="prices">
+      <li>
+        <h3>One-page website</h3>
+        <p class="desc">Your business name, photos, timings, location and a WhatsApp button. Ready in 3 to 5 days.</p>
+        <span class="cost">₹2,000 – 5,000</span>
+      </li>
+      <li>
+        <h3>Business website</h3>
+        <p class="desc">3 to 5 pages: Home, Services, Gallery, About, Contact. Includes a Google Maps link.</p>
+        <span class="cost">₹5,000 – 12,000</span>
+      </li>
+      <li>
+        <h3>Fixes and edits</h3>
+        <p class="desc">Broken layout, slow page, text or photo changes on your existing site.</p>
+        <span class="cost">from ₹500</span>
+      </li>
+    </ul>
+    <p class="note">Prices are a starting point. Final quote depends on the pages you need.</p>
+  </section>
+
+  <section class="sec" id="work">
+    <span class="label">Sample work</span>
+    <h2>Projects</h2>
+    <div class="work">
+      <article class="card">
+        <div class="frame" aria-hidden="true">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <div class="shot a"><b style="width:60%"></b><s style="width:90%"></s><s style="width:70%"></s><span class="pill"></span></div>
+        </div>
+        <h3>Salon booking page</h3>
+        <p>Services list, price menu and a one-tap WhatsApp booking button.</p>
+        <div class="tags"><span>HTML</span><span>CSS</span></div>
+      </article>
+      <article class="card">
+        <div class="frame" aria-hidden="true">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <div class="shot b"><b style="width:45%"></b><s style="width:85%"></s><s style="width:60%"></s><span class="pill"></span></div>
+        </div>
+        <h3>Coaching class site</h3>
+        <p>Batch timings, fee details and a simple enquiry form.</p>
+        <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+      </article>
+      <article class="card">
+        <div class="frame" aria-hidden="true">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <div class="shot c"><b style="width:70%"></b><s style="width:80%"></s><s style="width:55%"></s><span class="pill"></span></div>
+        </div>
+        <h3>Restaurant menu</h3>
+        <p>Mobile menu with categories, prices and opening hours.</p>
+        <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+      </article>
+    </div>
+    <p class="note">These are sample layouts. Replace them with your own projects as you build them.</p>
+  </section>
+
+  <section class="sec">
+    <span class="label">About</span>
+    <h2>Hi, I'm a student who builds websites</h2>
+    <div class="about">
+      <p>I'm studying and learning web development at the same time, and I take on small projects to get better with every one.</p>
+      <p><strong>What you get:</strong> a site that loads fast, looks right on a phone, and is delivered on the day I promise. I will explain how to update it yourself.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="contact">
+    <span class="label">Contact</span>
+    <h2>Tell me about your business</h2>
+    <div class="contact">
+      <div class="row">
+        <div><div class="k">Email</div><div class="v" id="email">shahnawazahmedb512@gmail.com</div></div>
+        <button class="copy" type="button" data-target="email">Copy</button>
+      </div>
+      <div class="row">
+        <div><div class="k">WhatsApp</div><div class="v" id="wa">+91 90556 02434</div></div>
+        <button class="copy" type="button" data-target="wa">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© <span id="year">2026</span> Shahnawaz Ahmed</span>
+    <span>Made with HTML, CSS and a little JavaScript.</span>
+  </footer>
+
+</div>
+
+<script>
+  // Footer mein saal apne aap badal jayega
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Copy buttons: text copy karta hai
+  document.querySelectorAll(".copy").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var el = document.getElementById(btn.dataset.target);
+      var done = function () {
+        btn.textContent = "Copied";
+        setTimeout(function () { btn.textContent = "Copy"; }, 1500);
+      };
+      try {
+        navigator.clipboard.writeText(el.textContent.trim()).then(done, function () { selectText(el); });
+      } catch (e) { selectText(el); }
+    });
+  });
+  function selectText(el) {
+    var r = document.createRange();
+    r.selectNodeContents(el);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  }
+</script>
+
+</body></html>
